@@ -53,7 +53,7 @@ def index():
                     title = music_data[0].get("title")
                     if title:
                         result[
-                            "youtube_search"] = f"https://www.youtube.com/results?search_query={title.replace(' ', '+')}"
+                            "youtube_search"] = f"https://www.youtube.com/results?search_query={title.replace(' ', '+')} Song"
         except Exception as e:
             result = {"status": {"msg": str(e), "code": 1}}
 
