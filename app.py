@@ -32,6 +32,7 @@ def index():
                     "--cookies", "fb_cookies.txt",
                     "--no-check-certificate",
                     "-x", "--audio-format", "wav",
+                    "--postprocessor-args", "-ss 0 -t 30",
                     "-o", os.path.join(tmpdir, "audio.%(ext)s"),
                     video_url
                 ], check=True)
