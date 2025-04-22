@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>শুনাও</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            padding: 3rem;
+            animation: pulse 10s infinite;
+        }
+        @keyframes pulse {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: #fff8dc;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #ff4081;
+            margin-bottom: 1rem;
+        }
+        input[type="text"] {
+            width: 95%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px dashed #ff9800;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        button {
+            background-color: #673ab7;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #512da8;
+        }
+        .result {
+            background-color: #e0f7fa;
+            border-left: 6px solid #009688;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+        .result p {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .youtube-btn {
+            display: block;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            text-align: center;
+            background-color: #ff0000;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            animation: bounce 1s infinite;
+        }
+        .youtube-btn:hover {
+            background-color: #cc0000;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎧 শুনাও</h1>
+        <form method="POST">
+            <input type="text" name="video_url" placeholder="ফেসবুক ভিডিও/রিল লিঙ্ক দিন..." required>
+            <button type="submit">গান খুঁজুন 🎶</button>
+        </form>
+
+        {% if result and result.metadata and result.metadata.music %}
+            <div class="result">
+                <p>🤖 <strong>গান:</strong> {{ result.metadata.music[0].title }}</p>
+                <audio id="foundSound" src="https://www.myinstants.com/media/sounds/among-us-role-reveal.mp3" autoplay></audio>
+                <a class="youtube-btn" href="{{ result.youtube_search }}" target="_blank">👉 ইউটিউবে যান</a>
+            </div>
+        {% elif result %}
+            <div class="result">
+                <p>😕 গান পাওয়া যায়নি, আবার চেষ্টা করুন।</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
