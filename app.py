@@ -17,6 +17,7 @@ ACR_HOST = "identify-ap-southeast-1.acrcloud.com"
 ACCESS_KEY = "71f558e238472520b2f8fd90abe2162f"
 ACCESS_SECRET = "Si1IVCyItLh21UK6qI8IScw5MHkiHMFvk7lSWAnT"
 
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     result = None
@@ -50,11 +51,13 @@ def index():
                 if music_data and isinstance(music_data, list) and len(music_data) > 0:
                     title = music_data[0].get("title")
                     if title:
-                        result["youtube_search"] = f"https://www.youtube.com/results?search_query={title.replace(' ', '+')}"
+                        result[
+                            "youtube_search"] = f"https://www.youtube.com/results?search_query={title.replace(' ', '+')}"
         except Exception as e:
             result = {"status": {"msg": str(e), "code": 1}}
 
     return render_template("index.html", result=result)
+
 
 def identify_audio(file_path):
     http_method = "POST"
@@ -86,6 +89,7 @@ def identify_audio(file_path):
 
     response = requests.post(f"https://{ACR_HOST}/v1/identify", files=files, data=data)
     return response.json()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
