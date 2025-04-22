@@ -3,3 +3,4 @@ requests
 pydub
 yt-dlp
 ffmpeg-python
+gunicorn
